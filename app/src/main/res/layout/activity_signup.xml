@@ -1,6 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Name Field -->
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Full Name"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"/>
+
+    <!-- Student ID Field -->
+    <EditText
+        android:id="@+id/editTextStudentId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Student ID"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Email Field -->
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/editTextStudentId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Phone Field -->
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Phone"
+        android:inputType="phone"
+        app:layout_constraintTop_toBottomOf="@id/editTextEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Gender Field -->
+    <EditText
+        android:id="@+id/editTextGender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Gender"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Password Field -->
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/editTextGender"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Sign Up Button -->
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        app:layout_constraintTop_toBottomOf="@id/editTextPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- AUCA Website Link -->
+    <TextView
+        android:id="@+id/textViewLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="https://auca.ac.rw/"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold"
+        android:autoLink="web"
+        android:linksClickable="true"
+        app:layout_constraintTop_toBottomOf="@id/buttonSignUp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
