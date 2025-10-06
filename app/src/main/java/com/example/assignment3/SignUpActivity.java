@@ -14,7 +14,7 @@ import com.example.assignment3.model.Student;
 public class SignUpActivity extends AppCompatActivity {
 
     EditText editTextName, editTextStudentId, editTextEmail, editTextPhone, editTextGender, editTextPassword;
-    Button buttonSignUp, buttonLogin; // add login button
+    Button buttonSignUp, buttonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,45 +31,53 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Initialize buttons
         buttonSignUp = findViewById(R.id.buttonSignUp);
-        buttonLogin = findViewById(R.id.buttonLogin); // make sure you added this button in your layout
+        buttonLogin = findViewById(R.id.buttonLogin);
 
         // SignUp logic
-        buttonSignUp.setOnClickListener(v -> {
-            String name = editTextName.getText().toString().trim();
-            String studentId = editTextStudentId.getText().toString().trim();
-            String email = editTextEmail.getText().toString().trim();
-            String phone = editTextPhone.getText().toString().trim();
-            String gender = editTextGender.getText().toString().trim();
-            String password = editTextPassword.getText().toString().trim();
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editTextName.getText().toString().trim();
+                String studentId = editTextStudentId.getText().toString().trim();
+                String email = editTextEmail.getText().toString().trim();
+                String phone = editTextPhone.getText().toString().trim();
+                String gender = editTextGender.getText().toString().trim();
+                String password = editTextPassword.getText().toString().trim();
 
-            if (name.isEmpty() || studentId.isEmpty() || email.isEmpty() ||
-                    phone.isEmpty() || gender.isEmpty() || password.isEmpty()) {
-                Toast.makeText(SignUpActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            } else {
-                // Save student
-                LocalStorageHelper storage = new LocalStorageHelper(SignUpActivity.this);
-                Student student = new Student(name, studentId, email, phone, gender, password);
-                storage.addStudent(student);
+                if (name.isEmpty() || studentId.isEmpty() || email.isEmpty() ||
+                        phone.isEmpty() || gender.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(SignUpActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Save student
+                    LocalStorageHelper storage = new LocalStorageHelper(SignUpActivity.this);
+                    Student student = new Student(name, studentId, email, phone, gender, password);
+                    storage.addStudent(student);
 
-                Toast.makeText(SignUpActivity.this, "Student Registered Successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Student Registered Successfully!", Toast.LENGTH_SHORT).show();
 
-                // Navigate to UserDetailsActivity
-                Intent intent = new Intent(SignUpActivity.this, UserDetailsActivity.class);
-                intent.putExtra("studentId", student.getStudentId());
-                intent.putExtra("name", student.getName());
-                intent.putExtra("password", password); // optional
-                intent.putExtra("gender", student.getGender());
-                intent.putExtra("email", student.getEmail());
-                intent.putExtra("phone", student.getPhone());
-                startActivity(intent);
-                finish();
+                    // OPTION 1: Navigate to StudentListActivity (if it exists)
+                    Intent intent = new Intent(SignUpActivity.this, StudentListActivity.class);
+                    intent.putExtra("studentId", studentId);
+                    intent.putExtra("name", name);
+                    startActivity(intent);
+                    finish();
+
+                    // OPTION 2: Or navigate back to LoginActivity
+                    // Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    // startActivity(intent);
+                    // finish();
+                }
             }
         });
 
         // Navigate to LoginActivity when login button is clicked
-        buttonLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-            startActivity(intent);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 }

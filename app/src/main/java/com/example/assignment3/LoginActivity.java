@@ -6,23 +6,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText editTextUsername, editTextPassword;
-    Button buttonLogin, buttonSignUp;
+    Button buttonLogin, buttonSignUp, buttonViewStudents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login); // Ensure your layout file is named login_activity.xml
+        setContentView(R.layout.activity_login);
 
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonSignUp = findViewById(R.id.buttonSignUp);
+        buttonViewStudents = findViewById(R.id.buttonViewStudents);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,11 +30,13 @@ public class LoginActivity extends AppCompatActivity {
                 String username = editTextUsername.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
 
-                if(username.isEmpty() || password.isEmpty()) {
+                if (username.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Pass username to UserDetailsActivity
-                    Intent intent = new Intent(LoginActivity.this, UserDetailsActivity.class);
+                    // Login successful - navigate to StudentListActivity
+                    Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(LoginActivity.this, StudentListActivity.class);
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
                 }
@@ -46,6 +48,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Go to SignUpActivity
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonViewStudents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to StudentListActivity
+                Intent intent = new Intent(LoginActivity.this, StudentListActivity.class);
                 startActivity(intent);
             }
         });
