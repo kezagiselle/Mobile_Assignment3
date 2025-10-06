@@ -29,6 +29,7 @@ public class LocalStorageHelper {
         editor.putString("student_" + count + "_email", student.getEmail());
         editor.putString("student_" + count + "_phone", student.getPhone());
         editor.putString("student_" + count + "_gender", student.getGender());
+        editor.putString("student_" + count + "_password", student.getPassword());
         editor.putInt(KEY_COUNT, count);  // Update count
 
         editor.apply();
@@ -45,9 +46,10 @@ public class LocalStorageHelper {
             String email = prefs.getString("student_" + i + "_email", "");
             String phone = prefs.getString("student_" + i + "_phone", "");
             String gender = prefs.getString("student_" + i + "_gender", "");
+            String password = prefs.getString("student_" + i + "_password", "");
 
             if (!name.isEmpty()) {
-                students.add(new Student(name, studentId, email, phone, gender));
+                students.add(new Student(name, studentId, email, phone, gender, password));
             }
         }
 
