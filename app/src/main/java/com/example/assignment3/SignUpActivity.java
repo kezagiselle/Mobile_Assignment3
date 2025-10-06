@@ -52,10 +52,9 @@ public class SignUpActivity extends AppCompatActivity {
                     ArrayList<Student> currentUsers = storage.getAllUsers();
                     int newId = currentUsers.size() + 1;
 
-                    // Create Student object (make sure your Student model matches these fields)
-                    Student student = new Student(newId, name, studentId, email, phone, gender, password);
+                    Student student = new Student(name, studentId, email, phone, gender);
 
-                    // Save student into SharedPreferences
+                         // Save student into SharedPreferences
                     storage.addUser(student);
 
                     Toast.makeText(SignUpActivity.this, "Student Registered Successfully!", Toast.LENGTH_SHORT).show();
