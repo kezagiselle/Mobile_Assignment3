@@ -18,7 +18,7 @@ public class UserListActivity extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<String> adapter;
     ArrayList<Student> studentList;
-    LocalStorageHelper storage;  // Use local storage instead of SQLite
+    LocalStorageHelper storage;  // Use local storage
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +29,9 @@ public class UserListActivity extends AppCompatActivity {
         storage = new LocalStorageHelper(this);
 
         // Fetch students from SharedPreferences
-        studentList = storage.getAllUsers();  // Make sure LocalStorageHelper returns ArrayList<Student>
+        studentList = storage.getAllUsers();  // Returns ArrayList<Student>
 
-        // Convert to String for display (ID + Name only)
+        // Convert to String for display (Student ID + Name)
         ArrayList<String> displayList = new ArrayList<>();
         for (Student s : studentList) {
             displayList.add("ID: " + s.getStudentId() + " - " + s.getName());
@@ -41,10 +41,21 @@ public class UserListActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayList);
         listView.setAdapter(adapter);
 
-        // Handle item click → open options
+        // Handle item click → open StudentDetailActivity
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Student selectedStudent = studentList.get(position);
+
+            // Option 1: Show Call/Email options
             showOptions(selectedStudent);
+
+            // Option 2: Navigate to StudentDetailActivity
+            Intent intent = new Intent(UserListActivity.this, UserDetailsActivity.class);
+            intent.putExtra("studentId", selectedStudent.getStudentId());
+            intent.putExtra("name", selectedStudent.getName());
+            intent.putExtra("gender", selectedStudent.getGender());
+            intent.putExtra("email", selectedStudent.getEmail());
+            intent.putExtra("phone", selectedStudent.getPhone());
+            startActivity(intent);
         });
     }
 
