@@ -9,14 +9,16 @@ import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.assignment3.model.Student;
+
 import java.util.ArrayList;
 
 public class UserListActivity extends AppCompatActivity {
 
     ListView listView;
     ArrayAdapter<String> adapter;
-    ArrayList<User> userList;
-    DatabaseHelper db;
+    ArrayList<Student> studentList;
+    LocalStorageHelper storage;  // Use local storage instead of SQLite
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,43 +26,43 @@ public class UserListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_list);
 
         listView = findViewById(R.id.userListView);
-        db = new DatabaseHelper(this);
+        storage = new LocalStorageHelper(this);
 
-        // Fetch from DB
-        userList = db.getAllUsers();
+        // Fetch students from SharedPreferences
+        studentList = storage.getAllUsers();  // Make sure LocalStorageHelper returns ArrayList<Student>
 
         // Convert to String for display (ID + Name only)
         ArrayList<String> displayList = new ArrayList<>();
-        for (User u : userList) {
-            displayList.add("ID: " + u.getId() + " - " + u.getName());
+        for (Student s : studentList) {
+            displayList.add("ID: " + s.getStudentId() + " - " + s.getName());
         }
 
         // Bind data to ListView
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayList);
         listView.setAdapter(adapter);
 
-        // Handle item click
+        // Handle item click → open options
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            User selectedUser = userList.get(position);
-            showOptions(selectedUser);
+            Student selectedStudent = studentList.get(position);
+            showOptions(selectedStudent);
         });
     }
 
     // Show options dialog (Call or Email)
-    private void showOptions(User user) {
-        String[] options = {"Call " + user.getPhone(), "Email " + user.getEmail()};
+    private void showOptions(Student student) {
+        String[] options = {"Call " + student.getPhone(), "Email " + student.getEmail()};
         new AlertDialog.Builder(this)
                 .setTitle("Choose Action")
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         // Implicit intent for phone call
                         Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(Uri.parse("tel:" + user.getPhone()));
+                        callIntent.setData(Uri.parse("tel:" + student.getPhone()));
                         startActivity(callIntent);
                     } else {
                         // Implicit intent for email
                         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                        emailIntent.setData(Uri.parse("mailto:" + user.getEmail()));
+                        emailIntent.setData(Uri.parse("mailto:" + student.getEmail()));
                         startActivity(emailIntent);
                     }
                 })
