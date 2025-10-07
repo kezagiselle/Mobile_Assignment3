@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToSignUp() {
-        startActivity(new Intent(this, signUpActivity.class));
+        startActivity(new Intent(this, SignUpActivity.class));
     }
 }
 
