@@ -1,124 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="#f5f5f5">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:orientation="vertical"
+        android:padding="24dp">
 
-        <!-- Name Field -->
-        <EditText
-            android:id="@+id/editTextName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:inputType="textPersonName"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="40dp"/>
-
-        <!-- Student ID Field -->
-        <EditText
-            android:id="@+id/editTextStudentId"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Student ID"
-            android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@id/editTextName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Email Field -->
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            app:layout_constraintTop_toBottomOf="@id/editTextStudentId"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Phone Field -->
-        <EditText
-            android:id="@+id/editTextPhone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Phone"
-            android:inputType="phone"
-            app:layout_constraintTop_toBottomOf="@id/editTextEmail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Gender Field -->
-        <EditText
-            android:id="@+id/editTextGender"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Gender"
-            android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@id/editTextPhone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Password Field -->
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@id/editTextGender"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Sign Up Button -->
-        <Button
-            android:id="@+id/buttonSignUp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
-            app:layout_constraintTop_toBottomOf="@id/editTextPassword"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp"/>
-
-        <!-- AUCA Website Link -->
         <TextView
-            android:id="@+id/textViewLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://auca.ac.rw/"
-            android:textColor="@android:color/holo_blue_dark"
+            android:text="Create Account"
+            android:textSize="28sp"
             android:textStyle="bold"
-            android:autoLink="web"
-            android:linksClickable="true"
-            app:layout_constraintTop_toBottomOf="@id/buttonSignUp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
+            android:textColor="#333333"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Login Button -->
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account? Login"
-            app:layout_constraintTop_toBottomOf="@id/textViewLink"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
+            android:text="Fill in the details to get started"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+        <!-- Using regular LinearLayout instead of MaterialCardView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="24dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/et_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Enter your full name"
+                android:inputType="textPersonName"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Address"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Enter your email"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Enter your phone number"
+                android:inputType="phone"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Enter your password"
+                android:inputType="textPassword"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/et_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Confirm your password"
+                android:inputType="textPassword"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <RadioGroup
+                android:id="@+id/rg_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <RadioButton
+                    android:id="@+id/rb_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioButton
+                    android:id="@+id/rb_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female" />
+
+            </RadioGroup>
+
+            <!-- Added paddingLeft for indentation to prevent text crowding -->
+            <CheckBox
+                android:id="@+id/cb_terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I agree to the Terms and Conditions"
+                android:textColor="#333333"
+                android:paddingLeft="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Adjusted marginBottom to 16dp for consistency; added paddingLeft -->
+            <CheckBox
+                android:id="@+id/cb_newsletter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subscribe to newsletter"
+                android:textColor="#333333"
+                android:paddingLeft="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_back_to_login"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="Back to Login"
+                    android:textColor="#2196F3"
+                    android:background="@drawable/button_outline_background"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/btn_signup"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="Sign Up"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/button_background"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+
+    <!--gggg-->

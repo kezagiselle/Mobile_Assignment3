@@ -1,64 +1,112 @@
 package com.example.assignment3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText editTextUsername, editTextPassword;
-    Button buttonLogin, buttonSignUp, buttonViewStudents;
+    private EditText etUsername, etPassword;
+    private Button btnLogin;
+    private TextView tvSignUpLink;
+    private SharedPreferences userPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editTextUsername = findViewById(R.id.editTextUsername);
-        editTextPassword = findViewById(R.id.editTextPassword);
-        buttonLogin = findViewById(R.id.buttonLogin);
-        buttonSignUp = findViewById(R.id.buttonSignUp);
-        buttonViewStudents = findViewById(R.id.buttonViewStudents);
+        userPrefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        initializeViews();
+        setupClickListeners();
+    }
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = editTextUsername.getText().toString().trim();
-                String password = editTextPassword.getText().toString().trim();
+    private void setupClickListeners() {
+        btnLogin.setOnClickListener(v -> performLogin());
+        tvSignUpLink.setOnClickListener(v -> navigateToSignUp());
+    }
 
-                if (username.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Login successful - navigate to StudentListActivity
-                    Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+    private void initializeViews() {
+        etUsername = findViewById(R.id.et_username);
+        etPassword = findViewById(R.id.et_password);
+        btnLogin = findViewById(R.id.btn_login);
+        tvSignUpLink = findViewById(R.id.tv_signup_link);
+    }
 
-                    Intent intent = new Intent(LoginActivity.this, StudentListActivity.class);
-                    intent.putExtra("USERNAME", username);
-                    startActivity(intent);
-                }
-            }
-        });
+    private void performLogin() {
+        clearErrors();
 
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Go to SignUpActivity
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(username)) {
+            etUsername.setError("Username is required");
+            etUsername.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return;
+        }
+
+        //Admin login -> go to user list
+        if (username.equals("admin") && password.equals("password")) {
+            Toast.makeText(this, "Admin login successful!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, UserListActivity.class));
+            finish();
+            return;
+        }
+
+        //Multi-user check
+        int nextId = userPrefs.getInt("next_user_id", 1);
+        boolean found = false;
+        for (int i = 1; i < nextId; i++) {
+            String savedName = userPrefs.getString("user_" + i + "_name", "");
+            String savedEmail = userPrefs.getString("user_" + i + "_email", "");
+            String savedPass = userPrefs.getString("user_" + i + "_password", "");
+            if ((username.equalsIgnoreCase(savedName) || username.equalsIgnoreCase(savedEmail)) && password.equals(savedPass)) {
+                found = true;
+                Intent intent = new Intent(this, UserDetailsActivity.class);
+                intent.putExtra("userId", "USER" + String.format("%03d", i));
+                intent.putExtra("fullName", savedName);
+                intent.putExtra("email", savedEmail);
+                intent.putExtra("phone", userPrefs.getString("user_" + i + "_phone", ""));
+                intent.putExtra("gender", userPrefs.getString("user_" + i + "_gender", ""));
+                intent.putExtra("newsletter", userPrefs.getBoolean("user_" + i + "_newsletter", false));
+                intent.putExtra("password", savedPass);
+                intent.putExtra("loginType", "registered");
+                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
+                finish();
+                break;
             }
-        });
 
-        buttonViewStudents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to StudentListActivity
-                Intent intent = new Intent(LoginActivity.this, StudentListActivity.class);
-                startActivity(intent);
-            }
-        });
+        }
+
+        if (!found) {
+            Toast.makeText(this, "Invalid username or password!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void clearErrors() {
+        etUsername.setError(null);
+        etPassword.setError(null);
+    }
+
+    private void navigateToSignUp() {
+        startActivity(new Intent(this, signUpActivity.class));
     }
 }
+
+
+
+
+
