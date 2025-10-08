@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(v -> performSignUp());
         btnGoToLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
-            finish();
+            finish(); 
         });
     }
 
