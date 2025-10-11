@@ -24,12 +24,21 @@
             android:exported="false" />
 
         <activity
-            android:name=".UserDetailsActivity"
+            android:name=".StudentDetailActivity"
             android:exported="false" />
 
         <activity
-            android:name=".UserListActivity"
+            android:name=".StudentListActivity"
             android:exported="false" />
+
+        <!-- Add these activities to your AndroidManifest.xml -->
+        <activity android:name=".FacultyListActivity" />
+        <activity android:name=".CourseListActivity" />
+        <activity android:name=".AddFacultyActivity" />
+        <activity android:name=".AddStudentActivity" />
+        <activity android:name=".AddCourseActivity" />
+        <activity android:name=".FacultyDetailActivity" />
+        <activity android:name=".CourseDetailActivity" />
 
     </application>
 

@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         //Admin login -> go to user list
         if (username.equals("admin") && password.equals("password")) {
             Toast.makeText(this, "Admin login successful!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, UserListActivity.class));
+            startActivity(new Intent(this, StudentListActivity.class));
             finish();
             return;
         }
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             String savedPass = userPrefs.getString("user_" + i + "_password", "");
             if ((username.equalsIgnoreCase(savedName) || username.equalsIgnoreCase(savedEmail)) && password.equals(savedPass)) {
                 found = true;
-                Intent intent = new Intent(this, UserDetailsActivity.class);
+                Intent intent = new Intent(this, StudentDetailActivity.class);
                 intent.putExtra("userId", "USER" + String.format("%03d", i));
                 intent.putExtra("fullName", savedName);
                 intent.putExtra("email", savedEmail);

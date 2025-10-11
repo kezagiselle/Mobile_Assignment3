@@ -1,6 +1,6 @@
 package com.example.assignment3.model;
 
-public class User {
+public class Student {
     private String userId;
     private String name;
     private String password;
@@ -9,7 +9,7 @@ public class User {
     private String phone;
     private  boolean newsletter;
 
-    public User(String userId, String name, String password, String gender, String email, String phone, boolean newsletter) {
+    public Student(String userId, String name, String password, String gender, String email, String phone, boolean newsletter) {
         this.userId = userId;
         this.name = name;
         this.password = password;
